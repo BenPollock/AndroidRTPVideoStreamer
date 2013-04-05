@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainClientView extends Activity {
 
@@ -22,6 +24,10 @@ public class MainClientView extends Activity {
 	
 	public void setup(View view){
 		System.out.println("Setup");
+		
+		String movieFile = ((EditText)findViewById(R.id.editMjpeg)).getText().toString();
+		System.out.println(movieFile);
+		
 	}
 	
 	public void play(View view){
