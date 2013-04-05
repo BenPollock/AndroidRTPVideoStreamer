@@ -3,6 +3,7 @@ package com.ben.bpolloc3_clientstream;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.View;
 
 public class MainClientView extends Activity {
 
@@ -17,6 +18,22 @@ public class MainClientView extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main_client_view, menu);
 		return true;
+	}
+	
+	public void setup(View view){
+		System.out.println("Setup");
+	}
+	
+	public void play(View view){
+		
+	}
+	
+	public void pause(View view){
+		
+	}
+	
+	public void teardown(View view){
+		
 	}
 
 }
