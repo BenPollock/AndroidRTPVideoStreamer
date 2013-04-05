@@ -11,8 +11,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/buttonPlay"
-        android:layout_weight="1"
-        android:text="Teardown" />
+        android:text="Teardown" 
+        android:onClick="teardown"/>
 
     <Button
         android:id="@+id/buttonSetup"
@@ -21,7 +21,8 @@
         android:layout_above="@+id/buttonPause"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:text="Setup" />
+        android:text="Setup"
+        android:onClick="setup" />
 
     <Button
         android:id="@+id/buttonPause"
@@ -30,8 +31,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/buttonPlay"
-        android:layout_weight="1"
-        android:text="Pause" />
+        android:text="Pause"
+        android:onClick="pause" />
 
     <Button
         android:id="@+id/buttonPlay"
@@ -39,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttonSetup"
         android:layout_centerHorizontal="true"
-        android:text="Play" />
+        android:text="Play"
+        android:onClick="play" />
 
 </RelativeLayout>
