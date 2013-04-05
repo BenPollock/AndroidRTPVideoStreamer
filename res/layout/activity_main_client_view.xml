@@ -43,4 +43,37 @@
         android:text="Play"
         android:onClick="play" />
 
+    <EditText
+        android:id="@+id/editIP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonSetup"
+        android:layout_alignParentLeft="true"
+        android:ems="10"
+        android:text="IP Addr" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/editPort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonSetup"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/editIP"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Port" />
+
+    <EditText
+        android:id="@+id/editMjpeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editIP"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:text="Movie.mjpeg" />
+
 </RelativeLayout>

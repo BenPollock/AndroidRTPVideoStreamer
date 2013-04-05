@@ -18,7 +18,10 @@ public final class R {
         public static final int buttonPlay=0x7f070001;
         public static final int buttonSetup=0x7f070002;
         public static final int buttonTeardown=0x7f070000;
-        public static final int menu_settings=0x7f070004;
+        public static final int editIP=0x7f070004;
+        public static final int editMjpeg=0x7f070006;
+        public static final int editPort=0x7f070005;
+        public static final int menu_settings=0x7f070007;
     }
     public static final class layout {
         public static final int activity_main_client_view=0x7f030000;
