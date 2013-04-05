@@ -4,4 +4,41 @@
     android:layout_height="match_parent"
     tools:context=".MainClientView" >
 
+    <Button
+        android:id="@+id/buttonTeardown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/buttonPlay"
+        android:layout_weight="1"
+        android:text="Teardown" />
+
+    <Button
+        android:id="@+id/buttonSetup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonPause"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="Setup" />
+
+    <Button
+        android:id="@+id/buttonPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/buttonPlay"
+        android:layout_weight="1"
+        android:text="Pause" />
+
+    <Button
+        android:id="@+id/buttonPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonSetup"
+        android:layout_centerHorizontal="true"
+        android:text="Play" />
+
 </RelativeLayout>
