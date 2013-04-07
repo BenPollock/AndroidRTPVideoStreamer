@@ -38,14 +38,13 @@ public class MainClientView extends Activity {
 		//Create RTSP and call setup
 		RTSP = new Rtsp(movie_file,ip_addr,port);
 		RTSP.setup();
-		
-		
-		
-		
-		
 	}
 	
-	public void play(View view){
+	public void play(View view) throws IOException{
+		
+		//Call Play
+		RTSP.play();
+		
 		
 	}
 	

@@ -9,6 +9,7 @@ public class Rtsp {
 	private String ip_addr;
 	private int port;
 	private int c_seq;
+	private int session;
 	
 	private DatagramSocket socket;
 	
@@ -18,6 +19,8 @@ public class Rtsp {
 		this.ip_addr = ip_addr;
 		this.port = port;
 		this.c_seq = 1;
+		//Session given from setup
+		this.session = 0;
 		
 		//For some reason I'm supposed to surround this with try/catch
 		try {
@@ -50,6 +53,27 @@ public class Rtsp {
 		//This isn't working for some reason
 		//DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 		//socket.receive(receivePacket);	
+		
+		return true;
+	}
+	
+	public boolean play() throws IOException{
+		//Create RTSP Message
+		String rtsp_play = "PLAY rtsp://" + ip_addr + ":3000" + "/" + movie_file + "RTSP/1.0" + "\nCSeq: " + c_seq + "\n" +"Session: " + session;
+		
+		//Write to UDP Port
+		byte[] sendData = new byte[1024];
+		byte[] receiveData = new byte[1024];
+		
+		sendData = rtsp_play.getBytes();
+		InetAddress addr;
+		addr = InetAddress.getByName(ip_addr);
+		
+		//Send packet
+		DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, addr, 9876);
+		socket.send(sendPacket);
+		
+		//Receive Response
 		
 		return true;
 	}
