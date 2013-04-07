@@ -1,5 +1,7 @@
 package com.ben.bpolloc3_clientstream;
 
+import java.io.IOException;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -9,10 +11,7 @@ import android.widget.TextView;
 
 public class MainClientView extends Activity {
 	
-	String movie_file;
-	String ip_addr;
-	int port;
-	int c_seq = 1;
+	public Rtsp RTSP;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,20 +26,21 @@ public class MainClientView extends Activity {
 		return true;
 	}
 	
-	public void setup(View view){
+	public void setup(View view) throws IOException{
 		System.out.println("Setup");
 		
 		//Get the variables
-		movie_file = ((EditText)findViewById(R.id.editMjpeg)).getText().toString();
-		ip_addr = ((EditText)findViewById(R.id.editIP)).getText().toString();
+		String movie_file = ((EditText)findViewById(R.id.editMjpeg)).getText().toString();
+		String ip_addr = ((EditText)findViewById(R.id.editIP)).getText().toString();
 		String string_port = ((EditText)findViewById(R.id.editPort)).getText().toString();
-		port = Integer.parseInt(string_port);
+		int port = Integer.parseInt(string_port);
 		
-		//Generate the RTSP Message
-		String rtsp_setup = "SETUP rtsp://" + ip_addr + ":3000" + "/" + movie_file + " RTSP/1.0" + "\nCSeq: " + c_seq +"\n"+"Transport: RTP/UDP; client_port= " + port;
-		System.out.println(rtsp_setup);
+		//Create RTSP and call setup
+		RTSP = new Rtsp(movie_file,ip_addr,port);
+		RTSP.setup();
 		
-		//Write to UDP Port
+		
+		
 		
 		
 	}
