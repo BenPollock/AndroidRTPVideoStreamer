@@ -13,49 +13,39 @@ public class Rtsp {
 	private int port;
 	private int c_seq;
 	private int session;
+	private BufferedReader RTSPBufferedReader;
+	private BufferedWriter RTSPBufferedWriter;
+	private InetAddress addr;
 	
-	private DatagramSocket socket;
+	private Socket rtsp_socket;
 	
 	//Constructor
-	public Rtsp(String movie_file, String ip_addr, int port){
+	public Rtsp(String movie_file, String ip_addr, int port) throws IOException{
 		this.movie_file = movie_file;
 		this.ip_addr = ip_addr;
 		this.port = port;
 		this.c_seq = 1;
 		//Session given from setup
 		this.session = 0;
+		this.addr = InetAddress.getByName(ip_addr);
 		
-		//For some reason I'm supposed to surround this with try/catch
-		try {
-			this.socket = new DatagramSocket();
-		} catch (SocketException e) {
-			e.printStackTrace();
-		}
+		//Create RTSP Socket
+		this.rtsp_socket = new Socket(ip_addr,port);
+		//Create RTSP Writers/Readers
+		RTSPBufferedReader = new BufferedReader(new InputStreamReader(rtsp_socket.getInputStream()) );
+		RTSPBufferedWriter = new BufferedWriter(new OutputStreamWriter(rtsp_socket.getOutputStream()) );
 	}
 	
 	//SETUP
 	public boolean setup() throws IOException{
+		
 		//Create RTSP Message
 		String rtsp_setup = "SETUP rtsp://" + ip_addr + ":3000" + "/" + movie_file + " RTSP/1.0" + "\nCSeq: " + c_seq +"\n"+"Transport: RTP/UDP; client_port= " + 25000;
 		System.out.println(rtsp_setup);
 		
-		//Write to UDP Port
-		byte[] sendData = new byte[1024];
-		byte[] receiveData = new byte[1024];
-		
-		sendData = rtsp_setup.getBytes();
-		InetAddress addr;
-		
-		addr = InetAddress.getByName(ip_addr);
-
-		//Send packet
-		DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, addr, port);
-		try{
-		socket.send(sendPacket);
-		}catch(Exception e){
-			System.out.println(e);
-		}
-		
+		//Create & Send Packet
+		RTSPBufferedWriter.write(rtsp_setup);
+		RTSPBufferedWriter.flush();
 		//Receive response
 		//This isn't working for some reason
 		//DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
@@ -76,14 +66,22 @@ public class Rtsp {
 		InetAddress addr;
 		addr = InetAddress.getByName(ip_addr);
 		
-		//Send packet
+		//Create Packets
 		DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, addr, 9876);
-		socket.send(sendPacket);
+		
+		
+	//	socket.send(sendPacket);
 		
 		//Receive Response
 		
 		return true;
 	}
+	//TODO : do this soon
+	//Gets the return code
+	private int getRTSPResponse(){
+		return 200;
+	}
+	
 	
 	
 	//Getters and Setters
