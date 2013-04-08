@@ -3,6 +3,7 @@ package com.ben.bpolloc3_clientstream;
 import java.io.IOException;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
@@ -11,12 +12,15 @@ import android.widget.TextView;
 
 public class MainClientView extends Activity {
 	
+	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+	
 	public Rtsp RTSP;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_client_view);
+		StrictMode.setThreadPolicy(policy);
 	}
 
 	@Override

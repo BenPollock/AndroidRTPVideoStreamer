@@ -3,7 +3,10 @@ package com.ben.bpolloc3_clientstream;
 import java.net.*;
 import java.io.*;
 
+import android.os.StrictMode;
+
 public class Rtsp {
+	
 	
 	private String movie_file;
 	private String ip_addr;
@@ -33,7 +36,7 @@ public class Rtsp {
 	//SETUP
 	public boolean setup() throws IOException{
 		//Create RTSP Message
-		String rtsp_setup = "SETUP rtsp://" + ip_addr + ":3000" + "/" + movie_file + " RTSP/1.0" + "\nCSeq: " + c_seq +"\n"+"Transport: RTP/UDP; client_port= " + port;
+		String rtsp_setup = "SETUP rtsp://" + ip_addr + ":3000" + "/" + movie_file + " RTSP/1.0" + "\nCSeq: " + c_seq +"\n"+"Transport: RTP/UDP; client_port= " + 25000;
 		System.out.println(rtsp_setup);
 		
 		//Write to UDP Port
@@ -46,8 +49,12 @@ public class Rtsp {
 		addr = InetAddress.getByName(ip_addr);
 
 		//Send packet
-		DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, addr, 9876);
+		DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, addr, port);
+		try{
 		socket.send(sendPacket);
+		}catch(Exception e){
+			System.out.println(e);
+		}
 		
 		//Receive response
 		//This isn't working for some reason

@@ -15,6 +15,7 @@ public class Rtp {
 		this.port = port;
 		
 		//Create RTP Packet
+		rtp_packet = new RtpPacket();
 		
 		
 	}

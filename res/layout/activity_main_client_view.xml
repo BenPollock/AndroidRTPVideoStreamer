@@ -50,7 +50,8 @@
         android:layout_above="@+id/buttonSetup"
         android:layout_alignParentLeft="true"
         android:ems="10"
-        android:text="127.0.0.1" >
+        android:text="10.0.2.2"
+        tools:ignore="TextFields" >
 
         <requestFocus />
     </EditText>
@@ -64,7 +65,7 @@
         android:layout_toRightOf="@+id/editIP"
         android:ems="10"
         android:inputType="number"
-        android:text="600" />
+        android:text="3000" />
 
     <EditText
         android:id="@+id/editMjpeg"
