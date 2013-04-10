@@ -1,6 +1,7 @@
 package com.ben.bpolloc3_clientstream;
 
-import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -8,7 +9,6 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 public class MainClientView extends Activity {
 	
@@ -16,6 +16,8 @@ public class MainClientView extends Activity {
 	
 	public Rtsp RTSP;
 	public String state;  //START->READY->PLAY/PAUSE/TEAR
+	public Timer timer;
+	public Rtp RTP;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class MainClientView extends Activity {
 		setContentView(R.layout.activity_main_client_view);
 		StrictMode.setThreadPolicy(policy);
 		state = "START";
+		timer = new Timer();
 	}
 
 	@Override
@@ -49,6 +52,7 @@ public class MainClientView extends Activity {
 				RTSP = new Rtsp(movie_file,ip_addr,port);
 				if(RTSP.setup()){
 					state = "READY";
+					RTP = new Rtp(port);
 					System.out.println("State is now ready");
 				}
 			}
@@ -65,6 +69,14 @@ public class MainClientView extends Activity {
 				if(RTSP.play()){
 					state = "PLAY";
 					System.out.println("Now Playing");
+					
+					//Init Timer
+					timer.schedule(new TimerTask(){
+						@Override
+						public void run(){
+							TimerTick();
+						}
+					}, 0,60);
 				}
 			}catch(Exception e){
 				System.out.println(e);
@@ -79,6 +91,14 @@ public class MainClientView extends Activity {
 	}
 	
 	public void teardown(View view){
+		
+	}
+	
+	//Called when the timer goes off
+	private void TimerTick(){
+	
+		//RTP should handle this stuff
+		RTP.timerEvent();
 		
 	}
 
