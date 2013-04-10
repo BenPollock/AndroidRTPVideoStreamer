@@ -13,24 +13,28 @@ public class Rtp {
 	private byte[] buf;
 	private DatagramSocket socket;
 	private int port;
+	private DatagramPacket receive_packet;
 	
 	//Constructor
 	public Rtp(int port){
 		buf = new byte[15000];
 		this.port = port;
+		try{
+			socket = new DatagramSocket(25000);
+			socket.setSoTimeout(5);
+		}catch(Exception e){
+			System.out.println("Error Creating Socket: " + e);
+		}
 	}
 	
 	//Get the next video frame
 	public void timerEvent(){
 		
 		//Create packet
-		DatagramPacket receive_packet = new DatagramPacket(buf, buf.length);
+		receive_packet = new DatagramPacket(buf, buf.length);
 		
 		try{
 			//Receive packet
-			socket = new DatagramSocket(port);
-			socket.setSoTimeout(5);
-			
 			socket.receive(receive_packet);
 			rtp_packet = new RtpPacket(receive_packet.getData(), receive_packet.getLength());
 			
@@ -44,7 +48,7 @@ public class Rtp {
 			System.out.println("Got Payload!!!!!");
 			
 		}catch(Exception e){
-			System.out.println("Error with UDP");
+			System.out.println("Error with UDP, Packet Dropped");
 			System.out.println(e);
 		}
 		
