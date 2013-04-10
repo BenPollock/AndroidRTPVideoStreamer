@@ -2,6 +2,9 @@ package com.ben.bpolloc3_clientstream;
 
 import java.util.Date;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 public class RtpPacket {
 	
 	private int version;
@@ -13,6 +16,7 @@ public class RtpPacket {
 	private int sequence_number;
 	private Date timestamp;
 	private int ssrc;
+	private Bitmap bmp;
 	
 	private byte[] header;
 	private byte[] payload;
@@ -41,8 +45,12 @@ public class RtpPacket {
 		//Load payload
 		int payload_length = size - 12;
 		payload = new byte[payload_length];
-		for (int i = 12; i < payload_length; i ++)
+		for (int i = 12; i < payload_length; i++)
 			payload[i-12] = packet[i];
+		
+		bmp = BitmapFactory.decodeByteArray(packet, 12, packet.length - 12);
+		
+		System.out.println(payload);
 	}
 	
 	public void initPacket(String server_message){
@@ -52,8 +60,13 @@ public class RtpPacket {
 	public byte[] getPayload(){
 		return payload;
 	}
+
 	public int getLength(){
 		return payload.length;
+	}
+	
+	public Bitmap getBmp(){
+		return bmp;
 	}
 
 }

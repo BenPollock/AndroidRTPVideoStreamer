@@ -103,11 +103,14 @@ public class MainClientView extends Activity {
 		//RTP should handle this stuff
 		runOnUiThread(new Runnable(){
 			public void run(){
-				byte[] payload = RTP.timerEvent();
-				if(payload != null){
-					Bitmap bmp = BitmapFactory.decodeByteArray(payload, 0, payload.length);
+				Bitmap bmp = RTP.timerEvent();
+				if(bmp != null){
+					try{
 					ImageView image = (ImageView)findViewById(R.id.imageView);
 					image.setImageBitmap(bmp);
+					}catch(Exception e){
+						System.out.println(e);
+					}
 				}
 			}
 		});
