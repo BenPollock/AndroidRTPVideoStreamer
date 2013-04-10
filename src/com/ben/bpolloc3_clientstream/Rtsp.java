@@ -53,38 +53,32 @@ public class Rtsp {
 		}catch(Exception e){
 			return false;
 		}
+		
 		//Receive response
-		//This isn't working for some reason
-		//DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-		//socket.receive(receivePacket);	
 		if(getRTSPResponse() == 200 || getRTSPResponse() == 400)
 			return true;
 		else
 			return false;
 	}
 	
-	public boolean play() throws IOException{
+	public boolean play(){
 		//Create RTSP Message
-		String rtsp_play = "PLAY rtsp://" + ip_addr + ":3000" + "/" + movie_file + "RTSP/1.0" + "\nCSeq: " + c_seq + "\n" +"Session: " + session;
+		String rtsp_play = "PLAY rtsp://" + ip_addr + ":3000" + "/" + movie_file + " RTSP/1.0" + "\nCSeq: " + c_seq +"\n"+"Session: " + id;
 		c_seq++;
 		
-		//Write to UDP Port
-		byte[] sendData = new byte[1024];
-		byte[] receiveData = new byte[1024];
-		
-		sendData = rtsp_play.getBytes();
-		InetAddress addr;
-		addr = InetAddress.getByName(ip_addr);
-		
-		//Create Packets
-		DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, addr, 9876);
-		
-		
-	//	socket.send(sendPacket);
+		//Create & Send Packet
+		try{
+			RTSPBufferedWriter.write(rtsp_play);
+			RTSPBufferedWriter.flush();
+		}catch(Exception e){
+			return false;
+		}
 		
 		//Receive Response
-		
-		return true;
+		if(getRTSPResponse()==200)
+			return true;
+		else
+			return false;
 	}
 	//TODO : do this soon
 	//Gets the return code

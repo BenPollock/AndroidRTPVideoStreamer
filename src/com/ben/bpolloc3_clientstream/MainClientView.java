@@ -58,10 +58,18 @@ public class MainClientView extends Activity {
 		
 	}
 	
-	public void play(View view) throws IOException{
-		
-		//Call Play
-		RTSP.play();
+	public void play(View view){
+		if(state.equals("READY")){
+			try{
+				//Call Play
+				if(RTSP.play()){
+					state = "PLAY";
+					System.out.println("Now Playing");
+				}
+			}catch(Exception e){
+				System.out.println(e);
+			}
+		}
 		
 		
 	}
