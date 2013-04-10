@@ -15,12 +15,14 @@ public class MainClientView extends Activity {
 	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 	
 	public Rtsp RTSP;
+	public String state;  //START->READY->PLAY/PAUSE/TEAR
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_client_view);
 		StrictMode.setThreadPolicy(policy);
+		state = "START";
 	}
 
 	@Override
@@ -30,18 +32,30 @@ public class MainClientView extends Activity {
 		return true;
 	}
 	
-	public void setup(View view) throws IOException{
-		System.out.println("Setup");
+	public void setup(View view){
 		
-		//Get the variables
-		String movie_file = ((EditText)findViewById(R.id.editMjpeg)).getText().toString();
-		String ip_addr = ((EditText)findViewById(R.id.editIP)).getText().toString();
-		String string_port = ((EditText)findViewById(R.id.editPort)).getText().toString();
-		int port = Integer.parseInt(string_port);
+		//Send Setup Message
+		try{
+			if(state.equals("START")){
+				System.out.println("Setup");
+				
+				//Get the variables
+				String movie_file = ((EditText)findViewById(R.id.editMjpeg)).getText().toString();
+				String ip_addr = ((EditText)findViewById(R.id.editIP)).getText().toString();
+				String string_port = ((EditText)findViewById(R.id.editPort)).getText().toString();
+				int port = Integer.parseInt(string_port);
+				
+				//Create RTSP and call setup
+				RTSP = new Rtsp(movie_file,ip_addr,port);
+				if(RTSP.setup()){
+					state = "READY";
+					System.out.println("State is now ready");
+				}
+			}
+		}catch(Exception e){
+			System.out.println(e);
+		}
 		
-		//Create RTSP and call setup
-		RTSP = new Rtsp(movie_file,ip_addr,port);
-		RTSP.setup();
 	}
 	
 	public void play(View view) throws IOException{
