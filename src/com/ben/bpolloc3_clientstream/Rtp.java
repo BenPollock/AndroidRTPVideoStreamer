@@ -14,6 +14,7 @@ public class Rtp {
 	private DatagramSocket socket;
 	private int port;
 	private DatagramPacket receive_packet;
+	private int plength;
 	
 	//Constructor
 	public Rtp(int port){
@@ -28,7 +29,7 @@ public class Rtp {
 	}
 	
 	//Get the next video frame
-	public void timerEvent(){
+	public byte[] timerEvent(){
 		
 		//Create packet
 		receive_packet = new DatagramPacket(buf, buf.length);
@@ -39,20 +40,28 @@ public class Rtp {
 			rtp_packet = new RtpPacket(receive_packet.getData(), receive_packet.getLength());
 			
 			//Get payload
-			int plength = rtp_packet.getLength();
+			plength = rtp_packet.getLength();
 			byte[] payload = new byte[plength];
 			for(int i = 0; i < plength; i++){
 				payload[i] = rtp_packet.getPayload()[i];
 			}
 			
 			System.out.println("Got Payload!!!!!");
+			return payload;
 			
 		}catch(Exception e){
 			System.out.println("Error with UDP, Packet Dropped");
 			System.out.println(e);
+			return null;
 		}
 		
 	}
+	
+	public int getPlength(){
+		return plength;
+	}
+	
+	
 
 
 }

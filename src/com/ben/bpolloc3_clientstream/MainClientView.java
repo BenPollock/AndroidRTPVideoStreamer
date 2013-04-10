@@ -6,9 +6,12 @@ import java.util.TimerTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 public class MainClientView extends Activity {
 	
@@ -98,7 +101,16 @@ public class MainClientView extends Activity {
 	private void TimerTick(){
 	
 		//RTP should handle this stuff
-		RTP.timerEvent();
+		runOnUiThread(new Runnable(){
+			public void run(){
+				byte[] payload = RTP.timerEvent();
+				if(payload != null){
+					Bitmap bmp = BitmapFactory.decodeByteArray(payload, 0, payload.length);
+					ImageView image = (ImageView)findViewById(R.id.imageView);
+					image.setImageBitmap(bmp);
+				}
+			}
+		});
 		
 	}
 
