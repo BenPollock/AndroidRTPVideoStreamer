@@ -14,7 +14,6 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int buttonHide=0x7f070008;
         public static final int buttonPause=0x7f070003;
         public static final int buttonPlay=0x7f070001;
         public static final int buttonSetup=0x7f070002;
@@ -23,7 +22,7 @@ public final class R {
         public static final int editMjpeg=0x7f070006;
         public static final int editPort=0x7f070005;
         public static final int imageView=0x7f070007;
-        public static final int menu_settings=0x7f070009;
+        public static final int menu_settings=0x7f070008;
     }
     public static final class layout {
         public static final int activity_main_client_view=0x7f030000;

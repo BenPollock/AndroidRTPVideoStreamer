@@ -6,16 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 public class RtpPacket {
-	
-	private int version;
-	private int padding;
-	private int extension;
-	private int cc;
-	private int marker;
-	private int payload_type;
-	private int sequence_number;
-	private Date timestamp;
-	private int ssrc;
 	private Bitmap bmp;
 	
 	private byte[] header;
@@ -29,13 +19,6 @@ public class RtpPacket {
 	
 	//Special Constructor for received packets
 	public RtpPacket(byte[] packet, int size){
-		
-		version = 2;
-		padding = 0;
-		extension = 0;
-		cc = 0;
-		marker = 0;
-		ssrc = 0;
 		
 		//This is commented out because the new bmp line removes the need for it
 		/*
@@ -52,8 +35,6 @@ public class RtpPacket {
 			*/
 		
 		bmp = BitmapFactory.decodeByteArray(packet, 12, packet.length - 12);
-		
-		System.out.println(payload);
 	}
 	
 	public void initPacket(String server_message){

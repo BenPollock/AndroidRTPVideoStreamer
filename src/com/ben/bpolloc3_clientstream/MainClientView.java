@@ -19,7 +19,7 @@ public class MainClientView extends Activity {
 	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 	
 	public Rtsp RTSP;
-	public String state;  //START->READY->PLAY/PAUSE/TEAR
+	public static String state;  //START->READY->PLAY/PAUSE/TEAR
 	public Timer timer;
 	public Rtp RTP;
 
@@ -139,6 +139,16 @@ public class MainClientView extends Activity {
 		
 	}
 	
+	//Called from timer, doesn't require button
+	public void teardownnobutton(){
+		try{
+			if(RTSP.teardown())
+				timer.wait();
+		}catch(Exception e){
+			System.out.println(e);
+		}
+	}
+	
 	//Hides the keyboard
 	public void hideKeyboard(View view){
 		InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -147,6 +157,11 @@ public class MainClientView extends Activity {
 	
 	//Called when the timer goes off
 	private void TimerTick(){
+		//Teardown if video over
+		if(state.equals("READY")){
+			teardownnobutton();
+			return;
+		}
 	
 		//RTP should handle this stuff
 		runOnUiThread(new Runnable(){
@@ -163,6 +178,9 @@ public class MainClientView extends Activity {
 			}
 		});
 		
+	}
+	public static void videoEnd(){
+		state = "READY";
 	}
 
 }

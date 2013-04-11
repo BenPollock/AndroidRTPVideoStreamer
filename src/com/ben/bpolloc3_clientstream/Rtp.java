@@ -69,6 +69,10 @@ public class Rtp {
 			}
 			return null;
 		}
+		catch(java.net.SocketTimeoutException se){
+			System.out.println("Reached end of video, teardown");
+			return null;
+		}
 		catch(Exception e){
 			System.out.println("Error with UDP, Packet Dropped");
 			System.out.println(e);
