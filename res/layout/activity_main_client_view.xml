@@ -77,6 +77,18 @@
         android:ems="10"
         android:text="Movie.mjpeg" />
 
+     <Button
+         android:id="@+id/buttonHide"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentRight="true"
+         android:layout_alignParentTop="true"
+         android:onClick="hideKeyboard"
+         android:text="Button"
+         android:visibility="gone" />
+    
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
@@ -86,5 +98,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/ic_launcher" />
+
 
 </RelativeLayout>
