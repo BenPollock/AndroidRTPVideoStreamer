@@ -17,6 +17,7 @@ public class Rtp {
 	private DatagramPacket receive_packet;
 	private int plength;
 	private int largestFrame;
+	private boolean finished;
 	
 	//Constructor
 	public Rtp(int port){
@@ -28,11 +29,13 @@ public class Rtp {
 			socket.setSoTimeout(10);
 		}catch(Exception e){
 			System.out.println("Error Creating Socket: " + e);
+			finished = false;
 		}
 	}
 	
 	//Get the next video frame
 	public Bitmap timerEvent(){
+		finished = false;
 		
 		//Create packet
 		receive_packet = new DatagramPacket(buf, buf.length);
@@ -75,6 +78,7 @@ public class Rtp {
 		}
 		catch(java.net.SocketTimeoutException se){
 			System.out.println("Reached end of video, teardown");
+			finished = true;
 			return null;
 		}
 		catch(Exception e){
@@ -91,6 +95,9 @@ public class Rtp {
 	
 	public void destroySocket(){
 		socket.close();
+	}
+	public boolean getFinished(){
+		return finished;
 	}
 	
 	

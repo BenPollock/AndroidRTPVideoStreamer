@@ -139,13 +139,15 @@ public class MainClientView extends Activity {
 		
 	}
 	
-	//Called from timer, doesn't require button
 	public void teardownnobutton(){
 		try{
-			RTSP.teardown();
-			RTP.destroySocket();
-			timer.wait();
-			state="READY";
+			//Call teardown
+			if(RTSP.teardown()){
+				state = "START";
+				RTP.destroySocket();
+				//Destroy timer
+				timer.wait();
+			}
 		}catch(Exception e){
 			System.out.println(e);
 		}
@@ -159,6 +161,11 @@ public class MainClientView extends Activity {
 	
 	//Called when the timer goes off
 	private void TimerTick(){
+		//Teardown if finished
+		if(RTP.getFinished()){
+			teardownnobutton();
+			return;
+		}
 	
 		//RTP should handle this stuff
 		runOnUiThread(new Runnable(){
