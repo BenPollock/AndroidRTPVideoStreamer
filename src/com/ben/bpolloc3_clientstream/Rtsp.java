@@ -103,7 +103,7 @@ public class Rtsp {
 	
 	public boolean teardown(){
 		//Create RTSP Message
-		String rtsp_pause = "PAUSE rtsp://" + ip_addr + ":" + port + "/" + movie_file + " RTSP/1.0" + "\nCSeq: " + c_seq +"\n"+"Session: " + id;
+		String rtsp_pause = "TEARDOWN rtsp://" + ip_addr + ":" + port + "/" + movie_file + " RTSP/1.0" + "\nCSeq: " + c_seq +"\n"+"Session: " + id;
 		c_seq++;
 		
 		//Create and send packet

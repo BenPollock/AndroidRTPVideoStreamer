@@ -128,7 +128,7 @@ public class MainClientView extends Activity {
 				//Call teardown
 				if(RTSP.teardown()){
 					state = "START";
-					
+					RTP.destroySocket();
 					//Destroy timer
 					timer.wait();
 				}
@@ -142,8 +142,9 @@ public class MainClientView extends Activity {
 	//Called from timer, doesn't require button
 	public void teardownnobutton(){
 		try{
-			if(RTSP.teardown())
-				timer.wait();
+			RTSP.teardown();
+			RTP.destroySocket();
+			timer.wait();
 		}catch(Exception e){
 			System.out.println(e);
 		}

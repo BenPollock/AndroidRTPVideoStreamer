@@ -69,8 +69,13 @@ public class Rtp {
 			}
 			return null;
 		}
+		catch(java.net.BindException be){
+			System.out.println("UH oh, bind exception");
+			return null;
+		}
 		catch(java.net.SocketTimeoutException se){
 			System.out.println("Reached end of video, teardown");
+			MainClientView.videoEnd();
 			return null;
 		}
 		catch(Exception e){
@@ -83,6 +88,10 @@ public class Rtp {
 	
 	public int getPlength(){
 		return plength;
+	}
+	
+	public void destroySocket(){
+		socket.close();
 	}
 	
 	
