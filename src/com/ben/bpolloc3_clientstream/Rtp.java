@@ -58,7 +58,18 @@ public class Rtp {
 			System.out.println("Got Payload!!!!!");
 			return bmp;
 			
-		}catch(Exception e){
+		}
+		//Sometimes the socket won't be made correctly if the user puts in an incorrect IP
+		catch(java.lang.NullPointerException en){
+			try{
+				socket = new DatagramSocket(25000);
+				socket.setSoTimeout(10);
+			}catch(Exception e){
+				System.out.println("Error Creating Socket Again!");
+			}
+			return null;
+		}
+		catch(Exception e){
 			System.out.println("Error with UDP, Packet Dropped");
 			System.out.println(e);
 			return null;

@@ -122,6 +122,19 @@ public class MainClientView extends Activity {
 	}
 	
 	public void teardown(View view){
+		if(state.equals("PLAY") || state.equals("PAUSE") || state.equals("READY")){
+			try{
+				//Call teardown
+				if(RTSP.teardown()){
+					state = "START";
+					
+					//Destroy timer
+					timer.wait();
+				}
+			}catch(Exception e){
+				System.out.println(e);
+			}
+		}
 		
 	}
 	

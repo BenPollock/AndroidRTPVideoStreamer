@@ -43,7 +43,7 @@ public class Rtsp {
 	public boolean setup(){
 		
 		//Create RTSP Message
-		String rtsp_setup = "SETUP rtsp://" + ip_addr + ":3000" + "/" + movie_file + " RTSP/1.0" + "\nCSeq: " + c_seq +"\n"+"Transport: RTP/UDP; client_port= " + 25000;
+		String rtsp_setup = "SETUP rtsp://" + ip_addr + ":" + port + "/" + movie_file + " RTSP/1.0" + "\nCSeq: " + c_seq +"\n"+"Transport: RTP/UDP; client_port= " + 25000;
 		c_seq++;
 		
 		//Create & Send Packet
@@ -55,7 +55,7 @@ public class Rtsp {
 		}
 		
 		//Receive response
-		if(getRTSPResponse() == 200 || getRTSPResponse() == 400)
+		if(getRTSPResponse() == 200)
 			return true;
 		else
 			return false;
@@ -63,7 +63,7 @@ public class Rtsp {
 	
 	public boolean play(){
 		//Create RTSP Message
-		String rtsp_play = "PLAY rtsp://" + ip_addr + ":3000" + "/" + movie_file + " RTSP/1.0" + "\nCSeq: " + c_seq +"\n"+"Session: " + id;
+		String rtsp_play = "PLAY rtsp://" + ip_addr + ":" + port + "/" + movie_file + " RTSP/1.0" + "\nCSeq: " + c_seq +"\n"+"Session: " + id;
 		c_seq++;
 		
 		//Create & Send Packet
@@ -83,7 +83,27 @@ public class Rtsp {
 	
 	public boolean pause(){
 		//Create RTSP Message
-		String rtsp_pause = "PAUSE rtsp://" + ip_addr + ":3000" + "/" + movie_file + " RTSP/1.0" + "\nCSeq: " + c_seq +"\n"+"Session: " + id;
+		String rtsp_pause = "PAUSE rtsp://" + ip_addr + ":" + port + "/" + movie_file + " RTSP/1.0" + "\nCSeq: " + c_seq +"\n"+"Session: " + id;
+		c_seq++;
+		
+		//Create and send packet
+		try{
+			RTSPBufferedWriter.write(rtsp_pause);
+			RTSPBufferedWriter.flush();
+		}catch(Exception e){
+			return false;
+		}
+		
+		//Receive Response
+		if(getRTSPResponse() == 200)
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean teardown(){
+		//Create RTSP Message
+		String rtsp_pause = "PAUSE rtsp://" + ip_addr + ":" + port + "/" + movie_file + " RTSP/1.0" + "\nCSeq: " + c_seq +"\n"+"Session: " + id;
 		c_seq++;
 		
 		//Create and send packet
