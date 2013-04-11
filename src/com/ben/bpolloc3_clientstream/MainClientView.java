@@ -86,6 +86,21 @@ public class MainClientView extends Activity {
 			}
 		}
 		
+		//If paused, notify the timer to run
+		if(state.equals("PAUSE")){
+			try{
+				if(RTSP.play()){
+					state = "PLAY";
+					System.out.println("Video Unpaused");
+					
+					//Notify timer
+					timer.notify();
+				}
+			}catch(Exception e){
+				System.out.println(e);
+			}
+		}
+		
 		
 	}
 	
