@@ -42,8 +42,10 @@ public class Rtp {
 			socket.receive(receive_packet);
 			rtp_packet = new RtpPacket(receive_packet.getData(), receive_packet.getLength());
 			Bitmap bmp = rtp_packet.getBmp();
+			
+			//Commented out now that we're getting BMP in packet
 			//Get payload
-			plength = rtp_packet.getLength();
+			/*plength = rtp_packet.getLength();
 			if(plength>largestFrame){
 				largestFrame = plength;
 				System.out.println("The Largest Frame is: " + largestFrame);
@@ -51,7 +53,7 @@ public class Rtp {
 			byte[] payload = new byte[plength];
 			for(int i = 0; i < plength; i++){
 				payload[i] = rtp_packet.getPayload()[i];
-			}
+			}*/
 			
 			System.out.println("Got Payload!!!!!");
 			return bmp;

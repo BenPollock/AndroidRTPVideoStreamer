@@ -90,7 +90,20 @@ public class MainClientView extends Activity {
 	}
 	
 	public void pause(View view){
-		
+		if(state.equals("PLAY")){
+			try{
+				//Call Pause
+				if(RTSP.pause()){
+					state = "PAUSE";
+					System.out.println("Video Paused");
+					
+					//Stop Timer
+					timer.wait();
+				}
+			}catch(Exception e){
+				System.out.println(e);
+			}
+		}
 	}
 	
 	public void teardown(View view){

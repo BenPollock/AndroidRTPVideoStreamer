@@ -37,6 +37,8 @@ public class RtpPacket {
 		marker = 0;
 		ssrc = 0;
 		
+		//This is commented out because the new bmp line removes the need for it
+		/*
 		//Load header
 		header = new byte[12];
 		for(int i = 0; i < 12; i++)
@@ -47,6 +49,7 @@ public class RtpPacket {
 		payload = new byte[payload_length];
 		for (int i = 12; i < payload_length; i++)
 			payload[i-12] = packet[i];
+			*/
 		
 		bmp = BitmapFactory.decodeByteArray(packet, 12, packet.length - 12);
 		

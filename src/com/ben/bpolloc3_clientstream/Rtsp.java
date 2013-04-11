@@ -80,7 +80,29 @@ public class Rtsp {
 		else
 			return false;
 	}
-	//TODO : do this soon
+	
+	public boolean pause(){
+		//Create RTSP Message
+		String rtsp_pause = "PAUSE rtsp://" + ip_addr + ":3000" + "/" + movie_file + " RTSP/1.0" + "\nCSeq: " + c_seq +"\n"+"Session: " + id;
+		c_seq++;
+		
+		//Create and send packet
+		try{
+			RTSPBufferedWriter.write(rtsp_pause);
+			RTSPBufferedWriter.flush();
+		}catch(Exception e){
+			return false;
+		}
+		
+		//Receive Response
+		if(getRTSPResponse() == 200)
+			return true;
+		else
+			return false;
+	}
+	
+	
+	
 	//Gets the return code
 	private int getRTSPResponse(){
 		int reply = 0;
