@@ -24,6 +24,7 @@ public class Rtp {
 		buf = new byte[15000];
 		this.port = port;
 		largestFrame = 0;
+		
 		try{
 			socket = new DatagramSocket(25000);
 			socket.setSoTimeout(10);

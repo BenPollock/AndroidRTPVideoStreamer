@@ -139,20 +139,6 @@ public class MainClientView extends Activity {
 		
 	}
 	
-	public void teardownnobutton(){
-		try{
-			//Call teardown
-			if(RTSP.teardown()){
-				state = "START";
-				RTP.destroySocket();
-				//Destroy timer
-				timer.wait();
-			}
-		}catch(Exception e){
-			System.out.println(e);
-		}
-	}
-	
 	//Hides the keyboard
 	public void hideKeyboard(View view){
 		InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -161,11 +147,6 @@ public class MainClientView extends Activity {
 	
 	//Called when the timer goes off
 	private void TimerTick(){
-		//Teardown if finished
-		if(RTP.getFinished()){
-			teardownnobutton();
-			return;
-		}
 	
 		//RTP should handle this stuff
 		runOnUiThread(new Runnable(){
