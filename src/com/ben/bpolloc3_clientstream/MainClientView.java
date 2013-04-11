@@ -19,7 +19,7 @@ public class MainClientView extends Activity {
 	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 	
 	public Rtsp RTSP;
-	public static String state;  //START->READY->PLAY/PAUSE/TEAR
+	public String state;  //START->READY->PLAY/PAUSE/TEAR
 	public Timer timer;
 	public Rtp RTP;
 
@@ -145,6 +145,7 @@ public class MainClientView extends Activity {
 			RTSP.teardown();
 			RTP.destroySocket();
 			timer.wait();
+			state="READY";
 		}catch(Exception e){
 			System.out.println(e);
 		}
@@ -158,11 +159,6 @@ public class MainClientView extends Activity {
 	
 	//Called when the timer goes off
 	private void TimerTick(){
-		//Teardown if video over
-		if(state.equals("READY")){
-			teardownnobutton();
-			return;
-		}
 	
 		//RTP should handle this stuff
 		runOnUiThread(new Runnable(){
@@ -179,9 +175,6 @@ public class MainClientView extends Activity {
 			}
 		});
 		
-	}
-	public static void videoEnd(){
-		state = "READY";
 	}
 
 }

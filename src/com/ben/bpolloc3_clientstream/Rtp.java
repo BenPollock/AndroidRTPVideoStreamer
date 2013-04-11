@@ -75,7 +75,6 @@ public class Rtp {
 		}
 		catch(java.net.SocketTimeoutException se){
 			System.out.println("Reached end of video, teardown");
-			MainClientView.videoEnd();
 			return null;
 		}
 		catch(Exception e){
