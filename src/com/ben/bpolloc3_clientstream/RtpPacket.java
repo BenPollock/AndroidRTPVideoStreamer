@@ -20,7 +20,7 @@ public class RtpPacket {
 	//Special Constructor for received packets
 	public RtpPacket(byte[] packet, int size){
 		
-		//This is commented out because the new bmp line removes the need for it
+		//This is commented out because the bmp line removes the need for it
 		/*
 		//Load header
 		header = new byte[12];

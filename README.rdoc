@@ -1,0 +1,9 @@
+== Android RTP Video Streaming Client
+
+<b>Description</b>
+
+This android application is designed to stream video.  It sends RTSP messages to the server using the user-inputted port number and .mjpeg name.  Then, it receives RTP packets over UDP and strips the payload bytes.  The bytes are converted into a human-viewable image.
+
+<b>How To Use</b>
+
+Ensure the video streamer is installed, and use the Setup/Play/Pause/Teardown buttons to control playback.  If running in the android emulator, proper URL redirection must be setup through telnet.
